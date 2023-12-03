@@ -1,0 +1,52 @@
+{% include 'header.html'%}
+<style>
+
+</style>
+{% block content%}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 border p-4">
+            <div class="bg-primary rounded bg-gradient border border-1 p-4 text-center mt-3">
+                <h5> Work Hour This Week</h5>
+                <h2>{{hh}}:{{mm}} Hrs</h2>
+            </div>
+            <div class="bg-info rounded bg-gradient border border-1 p-4 text-center mt-3">
+                <h5>Week Average Hours</h5>
+                <h2>{{ahh}}:{{amm}} Hrs</h2>
+            </div>
+            <div class="bg-danger rounded bg-gradient border border-1 p-4 text-center mt-3">
+                <h5>Task</h5>
+                <h2>{{data.count}}</h2>
+            </div>
+        </div>
+        <div class="col-md-9 border p-3">
+            <h5 class="text-center">Task Sheet</h5>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" class="col-2">Date</th>
+                        <th scope="col" class="col-2">Task</th>
+                        <th scope="col" class="col-2">Enquiry No.</th>
+                        <th scope="col" class="col-1">Minutes</th>
+                        <th scope="col" class="col-5 text-center">Comments</th>
+                        {% if user.first_name == 'Admin' %}<th scope="col" class="col-1 text-center">User</th>{% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data %}
+                    <tr>
+                        <th scope="row">{{i.date}}</th>
+                        <td>{{i.task}}</td>
+                        <td>{{i.enquiryNo}}</td>
+                        <td>{{i.timetaken}}</td>
+                        <td>{{i.comments}}</td>
+                        {% if user.first_name == 'Admin' %}<td>{{i.userid}}</td>{% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock%}

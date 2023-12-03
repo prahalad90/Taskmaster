@@ -1,0 +1,89 @@
+{% include 'header.html'%}
+<style>
+    #time{
+        width:82px; 
+        height:40px;
+        position:absolute;
+        top:90px;
+        right:44px;
+        background-color:#42e3e7;
+        line-height: 42px;
+        text-align: center;
+        border-radius: 7px;
+        font-size: 16px;
+    }
+    @media screen and (max-width:600px) {
+        #time{
+        height: 30px;
+        line-height: 30px;
+        top:314px;
+        right:40px;
+        }
+    }
+
+</style>
+{% block content%}
+<div class="container-fluid p-5">
+    <div class="row">
+        <div class="col-md-4">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="mb-3 col-6">
+                        <label for="exampleInputEmail1" class="form-label">Task</label>
+                        {{form.task}}
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label for="enquitynumber" class="form-label">Enquiry No.</label>
+                        {{form.enquiryNo}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-3">
+                        <label for="exampleInputPassword1" class="form-label">Time</label>
+                        {{form.timetaken}}
+                    </div>
+                    <div class="mb-3 col-9">
+                        <label for="exampleInputPassword1" class="form-label">Comment</label>
+                        {{form.comments}}
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <div class="col-md-8">
+            <div class="col">
+                <h5 class="text-center">Today</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="col-2">Date</th>
+                            <th scope="col" class="col-1">Task</th>
+                            <th scope="col" class="col-2">Enquiry No.</th>
+                            <th scope="col" class="col-1">Minutes</th>
+                            <th scope="col" class="col-6 text-center">Comments</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        {% for i in data %}
+                        <tr>
+                            <th scope="row">{{i.date}}</th>
+                            <td>{{i.task}}</td>
+                            <td>{{i.enquiryNo}}</td>
+                            <td>{{i.timetaken}}</td>
+                            <td>{{i.comments}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="time" >
+    {{thh}} : {{tmm}}
+</div>
+
+{% endblock%}
